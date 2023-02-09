@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +29,9 @@ class RolesController extends Controller
      */
     public function create()
     {
-        //
+        $all_permissions  = Permission::all();
+        $permission_groups = User::getpermissionGroups();
+        return view('backend.role.create', compact('all_permissions', 'permission_groups'));
     }
 
     /**
@@ -37,7 +42,25 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validation Data
+        $request->validate([
+            'name' => 'required|max:100|unique:roles'
+        ], [
+            'name.requried' => 'Please give a role name'
+        ]);
+
+        // Process Data
+        $role = Role::create(['name' => $request->name, 'guard_name' => 'web']);
+
+        // $role = DB::table('roles')->where('name', $request->name)->first();
+        $permissions = $request->input('permissions');
+
+        if (!empty($permissions)) {
+            $role->syncPermissions($permissions);
+        }
+
+        session()->flash('success', 'Role has been created !!');
+        return back();
     }
 
     /**
@@ -59,7 +82,10 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::findById($id, 'admin');
+        $all_permissions = Permission::all();
+        $permission_groups = User::getpermissionGroups();
+        return view('backend.role.edit', compact('role', 'all_permissions', 'permission_groups'));
     }
 
     /**
@@ -71,7 +97,24 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validation Data
+        $request->validate([
+            'name' => 'required|max:100|unique:roles,name,' . $id
+        ], [
+            'name.requried' => 'Please give a role name'
+        ]);
+
+        $role = Role::findById($id, 'admin');
+        $permissions = $request->input('permissions');
+
+        if (!empty($permissions)) {
+            $role->name = $request->name;
+            $role->save();
+            $role->syncPermissions($permissions);
+        }
+
+        session()->flash('success', 'Role has been updated !!');
+        return back();
     }
 
     /**

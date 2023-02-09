@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-body">
 
-    <a href="{{ route('roles.create') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;"><i class="fas fa-plus-circle"> Add Sector </i></a> <br>  <br>               
+    <a href="{{ route('role.create') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;"><i class="fas fa-plus-circle"> Add Sector </i></a> <br>  <br>               
 
                     <h4 class="card-title">Roles All Data </h4>
                     
@@ -34,9 +34,6 @@
                         <tr>
                             <th>Sl</th>
                             <th>Name</th> 
-                            {{-- <th>Mobile Number </th>
-                            <th>Email</th>
-                            <th>Address</th>  --}}
                             <th>Action</th>
                             
                         </thead>
@@ -44,17 +41,14 @@
 
                         <tbody>
                         	 
-                        	@foreach($sectors as $key => $item)
+                        	@foreach($roles as $key => $item)
                         <tr>
                             <td> {{ $key+1}} </td>
                             <td> {{ $item->name }} </td> 
-                             {{-- <td> {{ $item->mobile_no }} </td> 
-                              <td> {{ $item->email }} </td> 
-                               <td> {{ $item->address }} </td>  --}}
                             <td>
-   <a href="{{ route('role.edit',$item->id) }}" class="btn btn-info sm" title="Edit Data">  <i class="fas fa-edit"></i> </a>
+   {{-- <a href="{{ route('role.edit',$item->id) }}" class="btn btn-info sm" title="Edit Data">  <i class="fas fa-edit"></i> </a> --}}
 
-     <a href="{{ route('role.delete',$item->id) }}" class="btn btn-danger sm" title="Delete Data" id="delete">  <i class="fas fa-trash-alt"></i> </a>
+     {{-- <a href="{{ route('role.delete',$item->id) }}" class="btn btn-danger sm" title="Delete Data" id="delete">  <i class="fas fa-trash-alt"></i> </a> --}}
 
                             </td>
                            

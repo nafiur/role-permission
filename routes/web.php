@@ -55,12 +55,14 @@ Route::controller(SetupController::class)->group(function () {
 
 // Sector Setup
 Route::controller(RolesController::class)->group(function () {
-    Route::get('/sector/all', 'SectorAll')->name('sector.all');
-    Route::get('/sector/add', 'SectorAdd')->name('sector.add'); 
-    Route::post('/sector/store', 'SectorStore')->name('sector.store');
-    Route::get('/sector/edit/{id}', 'SectorEdit')->name('sector.edit'); 
-    Route::post('/sector/update', 'SectorUpdate')->name('sector.update');
-    Route::get('/sector/delete/{id}', 'SectorDelete')->name('sector.delete');
+    Route::get('/role/index', 'index')->name('role.index');
+    Route::get('/role/create', 'create')->name('role.create');
+
+    // Route::get('/sector/add', 'SectorAdd')->name('sector.add'); 
+    // Route::post('/sector/store', 'SectorStore')->name('sector.store');
+    // Route::get('/sector/edit/{id}', 'SectorEdit')->name('sector.edit'); 
+    // Route::post('/sector/update', 'SectorUpdate')->name('sector.update');
+    // Route::get('/sector/delete/{id}', 'SectorDelete')->name('sector.delete');
     
 });
 // Sector Setup

@@ -6,13 +6,13 @@
                     $adminData = App\Models\User::find($id);
                     @endphp
                     <!-- User details -->
-                    <div class="user-profile text-center mt-3">
+                    <div class="mt-3 text-center user-profile">
                         <div class="">
                             <img src="{{ (!empty($adminData->profile_image))? url('upload/admin_images/'.$adminData->profile_image):url('upload/no_image.jpg') }}" alt="" class="avatar-md rounded-circle">
                         </div>
                         <div class="mt-3">
-                            <h4 class="font-size-16 mb-1">{{ $adminData->name }}</h4>
-                            <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                            <h4 class="mb-1 font-size-16">{{ $adminData->name }}</h4>
+                            <span class="text-muted"><i class="align-middle ri-record-circle-line font-size-14 text-success"></i> Online</span>
                         </div>
                     </div>
 
@@ -57,6 +57,12 @@
                                 <a href="{{ route('newemployee.all') }}" class="waves-effect">
                                     <i class="ri-shield-user-fill"></i> 
                                     <span>New Employee Info</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('role.index') }}" class="waves-effect">
+                                    <i class="ri-shield-user-fill"></i> 
+                                    <span>Role Management</span>
                                 </a>
                             </li>
  
