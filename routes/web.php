@@ -3,7 +3,24 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Setup\AreaController;
+use App\Http\Controllers\Setup\ZoneController;
+use App\Http\Controllers\Setup\BranchController;
+use App\Http\Controllers\Setup\DomainController;
+use App\Http\Controllers\Setup\GenderController;
+use App\Http\Controllers\Setup\SectorController;
 use App\Http\Controllers\Backend\RolesController;
+use App\Http\Controllers\Setup\DistrictController;
+use App\Http\Controllers\Setup\DivisionController;
+use App\Http\Controllers\Setup\ReligionController;
+use App\Http\Controllers\Setup\UpazillaController;
+use App\Http\Controllers\Setup\JobStatusController;
+use App\Http\Controllers\Setup\BloodGroupController;
+use App\Http\Controllers\Setup\DepartmentController;
+use App\Http\Controllers\Setup\DesignationController;
+use App\Http\Controllers\Setup\EmployeeTypeController;
+use App\Http\Controllers\Setup\MaritalStatusController;
+use App\Http\Controllers\Setup\EducationalQualificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +41,6 @@ Route::view('/', 'auth.login');
 //});
  
 
-Route::controller(DemoController::class)->group(function () {
-    Route::get('/about', 'Index')->name('about.page')->middleware('check');
-    Route::get('/contact', 'ContactMethod')->name('cotact.page');
-});
-
-
 Route::middleware('auth')->group(function(){
 
 
@@ -46,17 +57,17 @@ Route::controller(AdminController::class)->group(function () {
      
 });
 
- // Setup All Route 
-
-Route::controller(SetupController::class)->group(function () {
-    Route::get('/setup/all', 'SetupAll')->name('setup.all');
-    
-});
-
-// Sector Setup
+// Role Setup
 Route::controller(RolesController::class)->group(function () {
     Route::get('/role/index', 'index')->name('role.index');
     Route::get('/role/create', 'create')->name('role.create');
+    Route::post('/role/store', 'store')->name('role.store');
+    Route::get('/role/edit/{id}', 'edit')->name('role.edit'); 
+    // Route::get('/sector/add', 'SectorAdd')->name('sector.add'); 
+    // Route::post('/sector/store', 'SectorStore')->name('sector.store');
+    // Route::get('/sector/edit/{id}', 'SectorEdit')->name('sector.edit'); 
+    // Route::post('/sector/update', 'SectorUpdate')->name('sector.update');
+    // Route::get('/sector/delete/{id}', 'SectorDelete')->name('sector.delete');
 
     // Route::get('/sector/add', 'SectorAdd')->name('sector.add'); 
     // Route::post('/sector/store', 'SectorStore')->name('sector.store');
@@ -397,13 +408,13 @@ Route::controller(StockController::class)->group(function () {
 
 
 
-// Default All Route 
-Route::controller(DefaultController::class)->group(function () {
-    Route::get('/get-category', 'GetCategory')->name('get-category'); 
-    Route::get('/get-product', 'GetProduct')->name('get-product'); 
-    Route::get('/check-product', 'GetStock')->name('check-product-stock'); 
+// // Default All Route 
+// Route::controller(DefaultController::class)->group(function () {
+//     Route::get('/get-category', 'GetCategory')->name('get-category'); 
+//     Route::get('/get-product', 'GetProduct')->name('get-product'); 
+//     Route::get('/check-product', 'GetStock')->name('check-product-stock'); 
      
-});
+// });
 
 
  

@@ -69,7 +69,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
     }
@@ -80,7 +80,7 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $role = Role::findById($id, 'admin');
         $all_permissions = Permission::all();
@@ -123,8 +123,27 @@ class RolesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        if (is_null($this->user) || !$this->user->can('role.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any role !');
+        }
+
+        // TODO: You can delete this in your local. This is for heroku publish.
+        // This is only for Super Admin role,
+        // so that no-one could delete or disable it by somehow.
+        if ($id === 1) {
+            session()->flash('error', 'Sorry !! You are not authorized to delete this role !');
+            return back();
+        }
+
+        $role = Role::findById($id, 'admin');
+        if (!is_null($role)) {
+            $role->delete();
+        }
+
+        session()->flash('success', 'Role has been deleted !!');
+        return back();
+
     }
 }
